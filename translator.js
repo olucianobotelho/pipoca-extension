@@ -1,13 +1,22 @@
 (() => {
   const state = window.__pipocaTranslatorState ||= { originals: new Map(), attributes: new Map(), nodes: new Map() };
-  if (state.version === 5) return;
+  if (state.version === 6) return;
   if (state.listener) chrome.runtime.onMessage.removeListener(state.listener);
   state.originals ||= new Map();
   state.attributes ||= new Map();
   state.nodes ||= new Map();
   state.markers ||= new Set();
-  state.version = 5;
+  state.version = 6;
   const skipTags = new Set(["SCRIPT", "STYLE", "NOSCRIPT", "CODE", "PRE", "KBD", "SAMP", "SVG", "CANVAS", "SELECT", "OPTION"]);
+
+  function isTranslatableText(clean) {
+    if (!clean || clean.length < 2) return false;
+    if (/^\W+$/.test(clean)) return false;
+    if (/^[\d\s.,:%$€£¥R+\-–—/()[\]{}#@!?*•·|~=_]+$/.test(clean)) return false;
+    if (/^https?:\/\/\S+$/i.test(clean)) return false;
+    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean)) return false;
+    return true;
+  }
 
   function shouldSkipElement(element) {
     let current = element;
@@ -41,7 +50,7 @@
       if (!bounds.width || !bounds.height) continue;
       const text = state.originals.get(node) ?? node.nodeValue ?? "";
       const clean = text.replace(/\s+/g, " ").trim();
-      if (clean.length < 2 || /^\W+$/.test(clean)) continue;
+      if (!isTranslatableText(clean)) continue;
       entries.push({ type: "text", node, text, tag: node.parentElement.tagName || "TEXT", inViewport: isInViewport(bounds) });
     }
     for (const element of root.querySelectorAll("[placeholder], [aria-label], [title]")) {
@@ -54,7 +63,7 @@
         if (!current) continue;
         const original = state.attributes.get(element)?.get(attribute) ?? current;
         const clean = original.replace(/\s+/g, " ").trim();
-        if (clean.length < 2 || /^\W+$/.test(clean)) continue;
+        if (!isTranslatableText(clean)) continue;
         entries.push({ type: "attribute", node: element, attribute, text: original, tag: element.tagName, inViewport });
         if (entries.length >= 700) { truncated = true; break; }
       }

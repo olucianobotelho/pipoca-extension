@@ -28,7 +28,7 @@ Por padrão, a Pipoca roda isolada no **Painel Lateral** com `"use_dynamic_url":
   - **Aprender meu estilo (local)**: analisa como você escreve, preferências e dúvidas comuns para adaptar respostas e atalhos; gerenciável/resetável em **Ajustes → IA**.
   - **Markdown inteligente com 1 clique**: renderiza títulos, listas, tabelas e blocos com botão **Copiar** em cada bloco, botões **Copiar MD** e **Texto** por resposta e atalho **Formatar MD** no compositor.
   - **Múltiplos prints e `Ctrl+V`**: recorte vários trechos (**Esc**, botão direito ou **Cancelar** abortam) ou cole imagens direto do clipboard com `Ctrl+V` (até 6 prints por mensagem).
-  - **Tradutor sob demanda** preservando código e explicações simples nos marcadores.
+  - **Tradutor rápido em segundo plano**: continua traduzindo mesmo se você minimizar ou fechar o Painel Lateral, prioriza o que está visível na tela em lotes paralelos e reaproveita o cache de frases por domínio, preservando código e com botão **Desfazer**.
 
 ---
 

@@ -30,7 +30,7 @@ Abra **Ajustes → IA** para configurar seu próprio provedor (OpenAI ou qualque
 - **Aprendizado local do seu estilo e dúvidas comuns**: quando ativado (**Aprender meu estilo**, ligado por padrão), a Pipoca aprende localmente como você escreve e quais dúvidas costumam se repetir, adaptando explicações, rascunhos e atalhos rápidos. Você pode visualizar o resumo e clicar em **Resetar** a qualquer momento em **Ajustes → IA**.
 - **Formatação inteligente & Markdown com cópia em 1 clique**: respostas renderizam títulos, tabelas, citações e blocos de código com botão **Copiar** em cada bloco, além dos botões **Copiar MD** e **Texto** em cada resposta e o atalho **Formatar MD** no campo de envio.
 - **Múltiplos prints e Ctrl+V**: clique em **Print** para recortar trechos da tela (`Esc`, clique direito ou **Cancelar** abortam a seleção) ou pressione **Ctrl+V** na aba da Pipoca IA para colar até 6 imagens diretamente sem tocar no DOM da página.
-- **Traduzir**: traduz trechos da aba ativa sob demanda preservando código, com cache local, explicações nos marcadores e botão **Desfazer**.
+- **Traduzir rápido e sem travar ao minimizar**: roda diretamente em segundo plano pelo *Service Worker* (mesmo que você minimize ou feche o Painel Lateral no meio), usa lotes paralelos com prioridade para o que está visível na tela, filtra números/URLs soltos e reaproveita o cache de frases por site. Também preserva blocos de código, gera explicações nos marcadores e traz o botão **Desfazer**.
 
 ## Privacidade e isolamento
 
