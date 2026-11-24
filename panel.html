@@ -123,7 +123,7 @@
 
       <section class="assistant-card chat-card">
         <div class="chat-header">
-          <span class="chat-context-pill"><i class="status-dot"></i> Pipoca IA · Ctrl+V cola prints</span>
+          <span class="chat-context-pill"><i class="status-dot"></i> <span id="chatContextLabel">Pipoca IA · Lê o chat · Ctrl+V cola prints</span></span>
           <button class="secondary-button compact-btn chat-clear-btn" id="clearChatButton" type="button" title="Limpar conversa">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
             <span>Limpar</span>
@@ -140,7 +140,10 @@
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
                   <span>Print</span>
                 </button>
-                <span class="paste-hint">Ctrl+V cola print</span>
+                <button class="secondary-button compact-btn" id="formatMdButton" type="button" title="Organizar texto em Markdown pronto para copiar">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+                  <span>Formatar MD</span>
+                </button>
                 <span id="chatAttachLabel" hidden></span>
               </div>
               <button class="primary-button compact-btn" id="sendChatButton" type="submit">
@@ -180,6 +183,14 @@
             </div>
             <div class="setting-toggle"><span><strong>Traduzir ao abrir</strong><small>Traduz a aba automaticamente.</small></span><label class="switch-label"><input id="autoTranslateSetting" type="checkbox"><span class="switch"></span></label></div>
             <div class="setting-toggle"><span><strong>Explicações nos "i"</strong><small>Notas simples pela página.</small></span><label class="switch-label"><input id="explanationsEnabled" type="checkbox" checked><span class="switch"></span></label></div>
+            <div class="setting-toggle"><span><strong>Aprender meu estilo</strong><small>Lembra como você escreve e dúvidas comuns.</small></span><label class="switch-label"><input id="learningEnabled" type="checkbox" checked><span class="switch"></span></label></div>
+            <div class="memory-box" id="memorySummaryBox">
+              <div class="memory-box-head">
+                <strong>Perfil aprendido (local)</strong>
+                <button class="secondary-button compact-btn memory-reset-btn" id="clearMemoryButton" type="button">Resetar</button>
+              </div>
+              <p class="memory-box-text" id="memorySummaryText">Ainda aprendendo seu estilo e dúvidas comuns conforme você conversa.</p>
+            </div>
           </div>
 
           <div class="settings-pane" id="paneSound">
