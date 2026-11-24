@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ritmo — seu tempo vale</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"><span>r</span><i></i></div>
+        <div><div class="brand-name">ritmo<span>.</span></div><div class="brand-subtitle">seu tempo vale</div></div>
+      </div>
+      <div class="top-actions">
+        <button class="icon-button" id="importButton" type="button" title="Importar backup JSON" aria-label="Importar backup">↑</button>
+        <button class="icon-button" id="exportButton" type="button" title="Salvar backup JSON" aria-label="Salvar backup">↓</button>
+      </div>
+      <input id="importFile" type="file" accept=".json,application/json" hidden>
+    </header>
+
+    <section class="summary-panel" aria-label="Resumo do histórico">
+      <div class="summary-heading"><span class="eyebrow">SEU HISTÓRICO</span><span class="local-badge"><i></i> salvo neste navegador</span></div>
+      <div class="summary-main">
+        <div><div class="summary-label">Tempo registrado</div><div class="summary-time" id="summaryTime">00:00:00</div></div>
+        <div class="coin-orbit" aria-hidden="true"><span>✦</span></div>
+      </div>
+      <div class="currency-totals" id="currencyTotals"></div>
+    </section>
+
+    <div class="section-heading">
+      <div><h1 id="sectionTitle">Em foco</h1><p id="sectionHint">Um passo de cada vez.</p></div>
+      <button class="primary-button create-button" id="createButton" type="button"><span>＋</span> Projeto</button>
+    </div>
+
+    <nav class="tabs" aria-label="Seções">
+      <button class="tab active" type="button" data-tab="work">Em foco</button>
+      <button class="tab" type="button" data-tab="history">Histórico</button>
+      <button class="tab" type="button" data-tab="trash">Lixeira</button>
+    </nav>
+
+    <section id="projectList" class="project-list" aria-live="polite"></section>
+    <footer class="app-footer"><span class="footer-dot"></span> Seus dados ficam no seu navegador. Use o backup para levar ao Drive.</footer>
+  </main>
+
+  <dialog id="editorDialog" class="dialog">
+    <form id="projectForm" class="dialog-card">
+      <div class="dialog-header"><div><span class="eyebrow">SEU PRÓXIMO PASSO</span><h2 id="formTitle">Novo projeto</h2></div><button class="icon-button close-dialog" type="button" aria-label="Fechar">×</button></div>
+      <label class="field-label" for="projectName">Nome do projeto</label>
+      <input class="text-input" id="projectName" name="name" maxlength="100" placeholder="Ex.: Site da Aurora" required autocomplete="off">
+      <div class="field-row">
+        <div class="field-grow"><label class="field-label" for="hourlyRate">Quanto você ganha por hora?</label><input class="text-input" id="hourlyRate" name="rate" type="number" min="0.01" max="100000000" step="0.01" placeholder="25,00" required></div>
+        <div class="currency-field"><label class="field-label" for="currency">Moeda</label><select class="text-input" id="currency" name="currency"><option value="USD">USD $</option><option value="BRL">BRL R$</option></select></div>
+      </div>
+      <label class="field-label" for="projectNotes">Anotações <span class="optional">opcional</span></label>
+      <textarea class="text-input notes-input" id="projectNotes" name="notes" maxlength="50000" placeholder="Cole aqui o link do projeto, detalhes ou qualquer lembrete…"></textarea>
+      <div class="attachment-section"><div><label class="field-label">Arquivos <span class="optional">imagens ou PDF</span></label><div class="attachment-help">Prints e referências ficam junto do backup.</div></div><label class="attach-button" for="attachmentInput">＋ Anexar<input id="attachmentInput" type="file" accept="image/png,image/jpeg,image/webp,image/gif,image/avif,application/pdf" multiple hidden></label></div>
+      <div id="attachmentList" class="attachment-list"></div>
+      <div class="dialog-actions"><button class="secondary-button cancel-dialog" type="button">Cancelar</button><button class="primary-button" id="saveProjectButton" type="submit">Salvar e iniciar <span>↗</span></button></div>
+      <p class="form-footnote" id="formFootnote">O cronômetro começa assim que você salvar.</p>
+    </form>
+  </dialog>
+
+  <dialog id="detailsDialog" class="dialog details-dialog">
+    <div class="dialog-card">
+      <div class="dialog-header"><div><span class="eyebrow">VISÃO DO PROJETO</span><h2 id="detailsTitle">Projeto</h2></div><button class="icon-button close-details" type="button" aria-label="Fechar">×</button></div>
+      <div id="detailsBody" class="details-body"></div>
+      <div class="dialog-actions"><button class="secondary-button close-details" type="button">Fechar</button><button class="primary-button" id="editProjectButton" type="button">Editar projeto <span>✎</span></button></div>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>

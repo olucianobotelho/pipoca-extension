@@ -1,0 +1,7 @@
+local-config.json
+*.local.json
+.env
+.env.*
+*.zip
+.DS_Store
+Thumbs.db

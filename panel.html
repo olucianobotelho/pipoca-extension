@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pipoca — seu tempo vale</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell" id="appShell">
+    <header class="topbar">
+      <div class="brand">
+        <img class="brand-chicken" src="assets/pipoca-128.png" alt="Pipoca, a galinha">
+        <div class="brand-name">pipoca<span>.</span></div>
+      </div>
+      <div class="top-actions">
+        <button class="icon-button" id="floatingToggleButton" type="button" title="Mostrar ou ocultar Pipoca flutuante na página" aria-label="Pipoca flutuante">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><rect x="11" y="9" width="7" height="6" rx="1.5" fill="currentColor" stroke="none"/></svg>
+        </button>
+        <button class="icon-button" id="openSettingsButton" type="button" title="Configurações" aria-label="Configurações">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
+        <button class="icon-button" id="compactButton" type="button" title="Minimizar painel" aria-label="Minimizar painel">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="12" x2="18" y2="12"/></svg>
+        </button>
+      </div>
+      <input id="importFile" type="file" accept=".json,application/json" hidden>
+    </header>
+
+    <div class="compact-view" id="compactView" hidden>
+      <button class="compact-mascot" id="expandButton" type="button" aria-label="Expandir Pipoca">
+        <img src="assets/pipoca-128.png" alt="">
+        <span class="compact-readout"><strong class="compact-project" id="compactProjectName">Nenhum projeto</strong><small class="compact-status" id="compactStatus">SEM SESSÃO</small><span class="compact-stats"><b id="compactTimer">00:00:00</b><b id="compactEarnings">—</b></span></span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+    </div>
+
+    <nav class="main-nav" aria-label="Pipoca">
+      <button class="main-nav-button active" type="button" data-view="timerView">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><polyline points="12 9 12 13 15 15"/><line x1="9" y1="2" x2="15" y2="2"/></svg>
+        <span>Projetos</span>
+      </button>
+      <button class="main-nav-button" type="button" data-view="assistantView">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <span>Pipoca IA</span>
+      </button>
+      <button class="main-nav-button settings-nav" type="button" data-view="settingsView">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+        <span>Ajustes</span>
+      </button>
+    </nav>
+
+    <section class="app-view active" id="timerView">
+      <section class="summary-panel" aria-label="Dashboard da Pipoca">
+        <div class="summary-heading">
+          <div class="summary-pipoca-row">
+            <span class="summary-mascot" id="summaryMascot" aria-hidden="true"></span>
+            <div class="dashboard-mood" id="dashboardMood">Pronta pra começar!</div>
+          </div>
+          <span class="status-pill stopped" id="dashboardStatusPill"><i class="status-dot"></i>Pronta</span>
+        </div>
+        <div class="dashboard-grid">
+          <div class="dash-tile">
+            <span class="summary-label">Horas</span>
+            <strong class="summary-time" id="summaryTime">00:00:00</strong>
+            <small class="dash-sub" id="summaryHoursLabel">0,0 h · 0 projetos</small>
+          </div>
+          <div class="dash-tile dash-earn-tile" id="summaryEarnTile" role="button" tabindex="0" title="Clique para girar e converter US$ ↔ R$">
+            <div class="dash-tile-head">
+              <span class="summary-label" id="summaryEarnTitle">Ganhos</span>
+              <span class="dash-flip-hint" aria-hidden="true">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+              </span>
+            </div>
+            <strong class="summary-earn-main metric-earn convertible" id="summaryEarnedMain">US$ 0,00</strong>
+            <small class="dash-sub" id="summaryEarnedSub">↻ Ver em R$</small>
+          </div>
+        </div>
+        <div class="milestone-meter">
+          <div class="milestone-head"><span>Próximo pó-pó</span><strong id="milestoneProgressLabel">0%</strong></div>
+          <div class="milestone-track"><div class="milestone-fill" id="milestoneProgressBar" style="width:0%"></div></div>
+        </div>
+        <div class="currency-totals" id="currencyTotals" hidden></div>
+      </section>
+
+      <div class="projects-toolbar">
+        <h1 id="sectionTitle" hidden>Em foco</h1>
+        <nav class="tabs" aria-label="Seções do histórico">
+          <button class="tab active" type="button" data-tab="work">Em foco</button>
+          <button class="tab" type="button" data-tab="history">Histórico</button>
+          <button class="tab" type="button" data-tab="trash">Lixeira</button>
+        </nav>
+        <div class="toolbar-actions">
+          <button class="primary-button create-button" id="createButton" type="button">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span>Projeto</span>
+          </button>
+        </div>
+      </div>
+      <section id="projectList" class="project-list" aria-live="polite"></section>
+    </section>
+
+    <section class="app-view" id="assistantView">
+      <section class="assistant-card translate-card">
+        <div class="translate-bar">
+          <select id="quickLanguage" class="text-input compact-select" aria-label="Idioma">
+            <option value="Português">Português</option><option value="English">English</option><option value="Español">Español</option><option value="Français">Français</option><option value="Deutsch">Deutsch</option><option value="日本語">日本語</option><option value="Italiano">Italiano</option>
+          </select>
+          <button class="primary-button compact-btn" id="translatePageButton" type="button">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+            <span>Traduzir</span>
+          </button>
+          <button class="secondary-button icon-chip" id="restorePageButton" type="button" title="Desfazer tradução" aria-label="Desfazer tradução" disabled>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          </button>
+          <label class="switch-label switch-compact" title="Traduzir automaticamente ao abrir">
+            <input id="autoTranslateToggle" type="checkbox"><span class="switch"></span><span class="switch-text">Auto</span>
+          </label>
+        </div>
+        <div class="translation-status" id="translationStatus" aria-live="polite"></div>
+        <div class="explanations" id="translationNotes" hidden><div class="details-section-title">Explicações</div></div>
+      </section>
+
+      <section class="assistant-card chat-card">
+        <div class="chat-header">
+          <span class="chat-context-pill"><i class="status-dot"></i> Pipoca IA · Ctrl+V cola prints</span>
+          <button class="secondary-button compact-btn chat-clear-btn" id="clearChatButton" type="button" title="Limpar conversa">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+            <span>Limpar</span>
+          </button>
+        </div>
+        <div class="chat-list" id="chatList" aria-live="polite"></div>
+        <div class="capture-preview" id="capturePreview" hidden></div>
+        <form id="chatForm" class="chat-form">
+          <div class="composer-box">
+            <textarea id="chatInput" class="chat-input" rows="2" maxlength="8000" placeholder="Pergunte algo ou cole prints (Ctrl+V)…"></textarea>
+            <div class="chat-form-footer">
+              <div class="chat-tools">
+                <button class="secondary-button compact-btn" id="captureButton" type="button" title="Capturar área da tela">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                  <span>Print</span>
+                </button>
+                <span class="paste-hint">Ctrl+V cola print</span>
+                <span id="chatAttachLabel" hidden></span>
+              </div>
+              <button class="primary-button compact-btn" id="sendChatButton" type="submit">
+                <span>Enviar</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+    </section>
+
+    <section class="app-view" id="settingsView">
+      <section class="assistant-card settings-card">
+        <div class="settings-tabs" role="tablist" aria-label="Categorias de ajustes">
+          <button class="settings-tab active" type="button" data-pane="paneAi">IA</button>
+          <button class="settings-tab" type="button" data-pane="paneSound">Som &amp; Metas</button>
+          <button class="settings-tab" type="button" data-pane="paneRate">Cotação &amp; Dados</button>
+        </div>
+        <form id="aiSettingsForm" class="settings-form">
+          <div class="settings-pane active" id="paneAi">
+            <div class="setting-toggle"><span><strong>Ativar IA</strong><small>Tradução e chat.</small></span><label class="switch-label"><input id="aiEnabled" type="checkbox"><span class="switch"></span></label></div>
+            <div class="settings-grid-2">
+              <div>
+                <label class="field-label" for="providerType">Provedor</label>
+                <select class="text-input" id="providerType"><option value="openai">OpenAI</option><option value="custom">Personalizado</option></select>
+              </div>
+              <div>
+                <label class="field-label" for="settingsLanguage">Idioma</label>
+                <select class="text-input" id="settingsLanguage"><option value="Português">Português</option><option value="English">English</option><option value="Español">Español</option><option value="Français">Français</option><option value="Deutsch">Deutsch</option><option value="日本語">日本語</option><option value="Italiano">Italiano</option></select>
+              </div>
+            </div>
+            <div id="endpointField" hidden><label class="field-label" for="customEndpoint">Endereço HTTPS</label><input class="text-input" id="customEndpoint" type="url" placeholder="https://api.seuprovedor.com/v1"></div>
+            <div class="settings-grid-2">
+              <div><label class="field-label" for="apiKey">Chave de API</label><input class="text-input" id="apiKey" type="password" autocomplete="off" placeholder="Cole sua chave"></div>
+              <div><label class="field-label" for="modelId">Modelo</label><input class="text-input" id="modelId" type="text" placeholder="gpt-4o-mini" autocomplete="off"></div>
+            </div>
+            <div class="setting-toggle"><span><strong>Traduzir ao abrir</strong><small>Traduz a aba automaticamente.</small></span><label class="switch-label"><input id="autoTranslateSetting" type="checkbox"><span class="switch"></span></label></div>
+            <div class="setting-toggle"><span><strong>Explicações nos "i"</strong><small>Notas simples pela página.</small></span><label class="switch-label"><input id="explanationsEnabled" type="checkbox" checked><span class="switch"></span></label></div>
+          </div>
+
+          <div class="settings-pane" id="paneSound">
+            <div class="setting-toggle"><span><strong>Notificações</strong><small>Aviso a cada ganho.</small></span><label class="switch-label"><input id="notificationsEnabled" type="checkbox" checked><span class="switch"></span></label></div>
+            <div class="setting-toggle"><span><strong>Som ao bater meta</strong><small>Toca no marco escolhido.</small></span><label class="switch-label"><input id="soundEnabled" type="checkbox" checked><span class="switch"></span></label></div>
+            <div>
+              <label class="field-label" for="soundMilestoneStep">Tocar som a cada (ex.: 10, 50)</label>
+              <input class="text-input" id="soundMilestoneStep" type="number" min="1" step="1" placeholder="10">
+            </div>
+            <div class="volume-row">
+              <label class="field-label" for="soundVolume">Volume <strong id="soundVolumeValue">35%</strong></label>
+              <input class="volume-slider" id="soundVolume" type="range" min="0" max="100" step="1" value="35">
+            </div>
+            <div class="sound-picker">
+              <input id="customSoundInput" type="file" accept="audio/*" hidden>
+              <div class="sound-picker-actions">
+                <button class="secondary-button compact-btn" id="chooseCustomSoundButton" type="button">Escolher áudio</button>
+                <button class="secondary-button compact-btn" id="clearCustomSoundButton" type="button">Padrão</button>
+                <button class="secondary-button compact-btn" id="testSoundButton" type="button">▶ Testar</button>
+              </div>
+              <small class="sound-status" id="customSoundName">Usando som padrão da Pipoca (pó-pó).</small>
+            </div>
+          </div>
+
+          <div class="settings-pane" id="paneRate">
+            <div class="rate-row">
+              <span class="rate-badge" id="liveRateBadge">Cotação: carregando…</span>
+              <button class="secondary-button compact-btn" id="refreshRateButton" type="button">↻ Atualizar</button>
+            </div>
+            <div>
+              <label class="field-label" for="manualUsdBrlRate">Cotação manual <span class="optional">(vazio = automático)</span></label>
+              <input class="text-input" id="manualUsdBrlRate" type="number" min="0.01" step="0.01" placeholder="Ex.: 5.75">
+            </div>
+            <p class="rate-tip">Clique em qualquer valor em dólar no painel ou no flutuante para girar e ver em Real na hora.</p>
+            <div class="backup-box">
+              <span class="field-label">Backup dos projetos</span>
+              <div class="backup-grid">
+                <button class="secondary-button compact-btn" id="exportButton" type="button">↓ Exportar JSON</button>
+                <button class="secondary-button compact-btn" id="importButton" type="button">↑ Importar JSON</button>
+              </div>
+            </div>
+          </div>
+
+          <button class="primary-button settings-save" type="submit">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Salvar configurações</span>
+          </button>
+        </form>
+      </section>
+    </section>
+
+    <dialog id="editorDialog" class="dialog">
+      <form id="projectForm" class="dialog-card">
+        <div class="dialog-header"><div><span class="eyebrow">SEU PRÓXIMO PASSO</span><h2 id="formTitle">Novo projeto</h2></div><button class="icon-button close-dialog" type="button" aria-label="Fechar">×</button></div>
+        <label class="field-label" for="projectName">Nome do projeto</label>
+        <input class="text-input" id="projectName" name="name" maxlength="100" placeholder="Ex.: Site da Aurora" required autocomplete="off">
+        <div class="field-row">
+          <div class="field-grow"><label class="field-label" for="hourlyRate">Valor por hora <span class="optional">opcional · 0 = sem valor</span></label><input class="text-input" id="hourlyRate" name="rate" type="number" min="0" max="100000000" step="0.01" placeholder="0,00 (ou vazio)"></div>
+          <div class="currency-field"><label class="field-label" for="currency">Moeda</label><select class="text-input" id="currency" name="currency"><option value="USD">USD $</option><option value="BRL">BRL R$</option></select></div>
+        </div>
+        <div class="backfill-field" id="backfillField"><label class="field-label" id="backfillLabel" for="backfillMinutes">Tempo já trabalhado <span class="optional">opcional · minutos</span></label><input class="text-input" id="backfillMinutes" name="backfillMinutes" type="number" min="0" max="10080" step="1" value="0" inputmode="numeric"><small id="backfillHint">Se você começou antes de abrir a Pipoca, inclua aqui os minutos já trabalhados.</small></div>
+        <label class="field-label" for="projectNotes">Anotações <span class="optional">opcional · Ctrl+clique abre links</span></label>
+        <div class="text-input notes-input" id="projectNotes" name="notes" contenteditable="true" role="textbox" aria-multiline="true" data-placeholder="Cole links ou escreva anotações…"></div>
+        <div class="attachment-section"><div><label class="field-label">Arquivos <span class="optional">imagens ou PDF</span></label><div class="attachment-help">Prints e referências ficam junto do backup.</div></div><label class="attach-button" for="attachmentInput">＋ Anexar<input id="attachmentInput" type="file" accept="image/png,image/jpeg,image/webp,image/gif,image/avif,application/pdf" multiple hidden></label></div>
+        <div id="attachmentList" class="attachment-list"></div>
+        <div class="dialog-actions"><button class="secondary-button cancel-dialog" type="button">Cancelar</button><button class="primary-button" id="saveProjectButton" type="submit">Salvar e iniciar <span>↗</span></button></div>
+        <p class="form-footnote" id="formFootnote">O cronômetro começa assim que você salvar.</p>
+      </form>
+    </dialog>
+
+    <dialog id="detailsDialog" class="dialog details-dialog">
+      <div class="dialog-card">
+        <div class="dialog-header"><div><span class="eyebrow">VISÃO DO PROJETO</span><h2 id="detailsTitle">Projeto</h2></div><button class="icon-button close-details" type="button" aria-label="Fechar">×</button></div>
+        <div id="detailsBody" class="details-body"></div>
+        <div class="dialog-actions"><button class="secondary-button close-details" type="button">Fechar</button><button class="primary-button" id="editProjectButton" type="button">Editar projeto <span>✎</span></button></div>
+      </div>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </main>
+  <script src="app.js"></script>
+  <script src="assistant.js"></script>
+</body>
+</html>
